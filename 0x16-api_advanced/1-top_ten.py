@@ -3,7 +3,8 @@
 
 
 def top_ten(subreddit):
-    """Queries the Reddit API and prints the titles of the first 10 hot posts"""
+    """Queries the Reddit API and prints the titles of
+    the first 10 hot posts"""
     import requests
 
     sub_info = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
