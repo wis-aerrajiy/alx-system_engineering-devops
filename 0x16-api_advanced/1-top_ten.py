@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""Top Ten"""
-import requests
-
-headers = {"User-Agent": "MyCustomUserAgent/1.0"}
+"""Task 1"""
 
 
 def top_ten(subreddit):
-    """top ten hot post on a subreddit"""
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    response = requests.get(url, allow_redirects=False, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        for post in data["data"]["children"]:
-            print(post["data"]["title"])
+    """Queries the Reddit API and prints the titles of the first 10 hot posts"""
+    import requests
+
+    sub_info = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
+                            .format(subreddit),
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
+        print('None')
     else:
-        print("None")
+        [print(child.get("data").get("title"))
+         for child in sub_info.json().get("data").get("children")]
